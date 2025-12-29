@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dice Roll Simulator</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.0"></script>
+  </head>
+
+  <body class="min-h-screen bg-white text-slate-900">
+    <main class="mx-auto w-full max-w-3xl px-6 py-12">
+      <h1 class="text-center text-5xl font-extrabold tracking-tight sm:text-6xl">
+        Dice Roll Simulator
+      </h1>
+
+      <div class="mt-10 flex justify-center">
+        <div
+          id="mainDice"
+          class="grid h-16 w-16 place-items-center rounded-md border-4 border-rede">
+
+        </div>
+      </div>
+      <div class="mt-8 flex justify-center">
+        <button
+          id="rollBtn"
+          class="rounded-2xl bg-[red] px-14 py-4 text-2xl font-medium text-white"
+        >
+          Roll Dice
+        </button>
+      </div>
+
+      <section class="mt-10 space-y-5">
+        <div class="rounded-xl bg-[grey] px-6 py-5 shadow-sm ring-1 ring-black/5">
+          <div class="flex items-center justify-between">
+            <p class="text-xl font-medium">Roll 1:</p>
+            <div
+              class="grid h-10 w-10 place-items-center rounded-md border-2 border-black bg-white"
+              id="dice1">
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-[grey] px-6 py-5 shadow-sm ring-1 ring-black/5">
+          <div class="flex items-center justify-between">
+            <p class="text-xl font-medium">Roll 2:</p>
+            <div
+              class="grid h-10 w-10 place-items-center rounded-md border-2 border-black bg-white"
+              id="dice2">
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-[grey] px-6 py-5 shadow-sm ring-1 ring-black/5">
+          <div class="flex items-center justify-between">
+            <p class="text-xl font-medium">Roll 3:</p>
+            <div
+              class="grid h-10 w-10 place-items-center rounded-md border-2 border-black bg-white"
+              id="dice3">
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      function diceSVG(n, sizeClass = "h-7 w-7") {
+        const dots = {
+          1: [[50, 50]],
+          2: [[25, 25], [75, 75]],
+          3: [[25, 25], [50, 50], [75, 75]],
+          4: [[25, 25], [75, 25], [25, 75], [75, 75]],
+          5: [[25, 25], [75, 25], [50, 50], [25, 75], [75, 75]],
+          6: [[25, 25], [75, 25], [25, 50], [75, 50], [25, 75], [75, 75]],
+        };
+
+        const circles = dots[n]
+          .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7"></circle>`)
+          .join("");
+
+        return `
+          <svg viewBox="0 0 100 100" class="${sizeClass}" fill="black" aria-hidden="true">
+            ${circles}
+          </svg>
+        `;
+      }
+
+      const rollBtn = document.getElementById("rollBtn");
+      const mainDice = document.getElementById("mainDice");
+      const dice1 = document.getElementById("dice1");
+      const dice2 = document.getElementById("dice2");
+      const dice3 = document.getElementById("dice3");
+      let history = [4, 3, 5];
+
+    function render() {
+        mainDice.innerHTML = diceSVG(history[0], "h-12 w-12");
+
+        
+        dice1.innerHTML = diceSVG(history[0], "h-6 w-6");
+        dice2.innerHTML = diceSVG(history[1], "h-6 w-6");
+        dice3.innerHTML = diceSVG(history[2], "h-6 w-6");
+      }
+
+      function roll() {
+        return Math.floor(Math.random() * 6) + 1;
+      }
+
+      rollBtn.addEventListener("click", () => {
+        const newRoll = roll();
+        history = [newRoll, history[0], history[1]];
+        render();
+      });
+
+      render();
+    </script>
+  </body>
+</html>

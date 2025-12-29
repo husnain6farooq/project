@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tip Calculator</title>
+
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-2">Tip Calculator</h1>
+    <p class="text-gray-600 text-center mb-6">
+      Enter the bill amount and tip percentage to calculate the total.
+    </p>
+
+    <div class="mb-4">
+      <label class="block text-gray-700 font-medium">
+        Bill amount:
+      </label>
+      <input
+        type="number"
+        id="billAmount"
+        placeholder="100"
+        class="w-full border rounded-md px-3 py-2"/>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-gray-700 font-medium mb-1">
+        Tip percentage:
+      </label>
+      <input
+        type="number"
+        id="tipPercentage"
+        placeholder="20"
+        class="w-full border rounded-md px-3 py-2"/>
+    </div>
+
+    <button
+      onclick="calculateTip()"
+      class="w-full bg-green-500 text-white py-2 rounded-md font-semibold hover:bg-green-600 transition">
+      Calculate
+    </button>
+
+    <div class="mt-5 text-lg font-semibold">
+      Total: <span id="totalAmount" class="text-black">$0.00</span>
+    </div>
+  </div>
+
+  <script>
+    function calculateTip() {
+      const bill = parseFloat(document.getElementById("billAmount").value);
+      const tip = parseFloat(document.getElementById("tipPercentage").value);
+      if (isNaN(bill) || isNaN(tip)) {
+        alert("Please enter valid numbers");
+        return;
+      }
+      const tipAmount = (bill * tip) / 100;
+      const total = bill + tipAmount;
+      document.getElementById("totalAmount").innerText =
+        "$" + total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
