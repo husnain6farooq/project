@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen flex items-center justify-center ">
+
+  <div class="w-[300px] rounded-2xl bg-[#40E0D0] to-teal-700 p-5 text-white">
+
+    <div class="flex bg-white rounded-full px-3 py-2">
+      <input
+        id="cityInput"
+        type="text"
+        placeholder="Search"
+        class="flex-1 outline-none text-sm text-gray-700"
+      />
+      <button onclick="searchCity()" class="text-gray-500">🔍</button>
+    </div>
+
+    <div class="text-center text-6xl my-6">
+      ☁️
+    </div>
+
+    <h1 id="temp" class="text-4xl font-bold text-center">
+      12°C
+    </h1>
+
+    <h2 id="city" class="text-lg text-center mt-1">
+      Karachi
+    </h2>
+
+    <div class="flex justify-between mt-8 text-sm">
+      <div class="flex items-center gap-2">
+        <div>
+          <p id="humidity" class="font-semibold">64%</p>
+          <p class="opacity-80">Humidity</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <div>
+          <p id="wind" class="font-semibold">18 km/h</p>
+          <p class="opacity-80">Wind Speed</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function searchCity() {
+      const input = document.getElementById("cityInput").value;
+
+      if (input.trim() !== "") {
+        document.getElementById("city").innerText = input;
+        document.getElementById("temp").innerText = "25°C";
+        document.getElementById("humidity").innerText = "70%";
+        document.getElementById("wind").innerText = "15 km/h";
+      }
+    }
+  </script>
+
+</body>
+</html>
